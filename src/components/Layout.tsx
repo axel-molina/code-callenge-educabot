@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 import {
     AppBar,
     Box,
@@ -13,26 +13,26 @@ import {
     ListItemText,
     Toolbar,
     Typography,
-} from '@mui/material';
+} from '@mui/material'
 import {
     Menu as MenuIcon,
     Dashboard as DashboardIcon,
     People as PeopleIcon,
     Settings as SettingsIcon,
-} from '@mui/icons-material';
+} from '@mui/icons-material'
 
-const drawerWidth = 240;
+const drawerWidth = 240
 
 interface Props {
-    children: React.ReactNode;
+    children: React.ReactNode
 }
 
 export const Layout: React.FC<Props> = ({ children }) => {
-    const [mobileOpen, setMobileOpen] = React.useState(false);
+    const [mobileOpen, setMobileOpen] = React.useState(false)
 
     const handleDrawerToggle = () => {
-        setMobileOpen(!mobileOpen);
-    };
+        setMobileOpen(!mobileOpen)
+    }
 
     const drawer = (
         <div>
@@ -55,7 +55,7 @@ export const Layout: React.FC<Props> = ({ children }) => {
                 ))}
             </List>
         </div>
-    );
+    )
 
     return (
         <Box sx={{ display: 'flex' }}>
@@ -120,5 +120,5 @@ export const Layout: React.FC<Props> = ({ children }) => {
                 {children}
             </Box>
         </Box>
-    );
-};
+    )
+}

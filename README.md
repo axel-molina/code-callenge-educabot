@@ -3,11 +3,11 @@
 
 ## Condiciones
 - El tiempo de resolución es de 2 horas.
-- Podés usar cualquier IDE (cursor, windsurf, VS Code, etc).
 - Podés modificar cualquier archivo dentro del proyecto.
-- Podés ayudarte con cualquier recurso externo (google, código propio, AI, etc).
 - La aplicación debe poder ejecutarse con `npm run dev` y funcionar correctamente.
-- Todas las conversaciones con la IA deben ser documentadas en este repositorio o en un link aparte.
+- Podés usar cualquier IDE (cursor, windsurf, VS Code, etc).
+- Podés ayudarte con cualquier recurso externo (google, código propio, AI, etc).
+- Las conversaciones con la IA (completas) deben ser documentadas en este repositorio o en un link aparte.
 
 ## Consejos
 - No sobrepensar las soluciones, el challenge es simple a propósito.
@@ -15,11 +15,11 @@
 - Un buen uso de IA es algo que se ve con buenos ojos.
 
 ## Instrucciones
-En este proyecto encontrarás un panel de inscripciones que presenta algunos problemas. El código funciona, pero contiene
-problemas de estructura, bugs y tipos incompletos. A continuación, se detallan los objetivos a cumplir para poder
-solucionarlos.
+En este proyecto encontrarás un panel de inscripciones que presenta algunos problemas. El código funciona en su mayor
+parte, pero contiene problemas de estructura, bugs y tipos incompletos. A continuación, se detallan los objetivos a
+cumplir para poder solucionarlos.
 
-1. Algunos usuarios reportaron que el filtro por estado no está funcionando bien. Un caso ocurre al agregar nuevas inscripciones y otro al actualizar el estado cuando se confirma una inscripción. Tu primera tarea es resolver ambos problemas.
+1. Algunos usuarios reportaron que la lista de inscripciones no está funcionando correctamente. Es necesario revisar que las inscripciones se vean bien, que los filtros aplicados funcionen correctamente, y que se pueda confirmar una inscripción sin problemas.
 
 2. Dado que el proyecto va a escalar, tu segunda tarea es refactorizar el componente principal: separá responsabilidades en componentes más pequeños y mové la lógica relacionada con datos a un custom hook. Hoy todo está concentrado en `App.tsx`.
 

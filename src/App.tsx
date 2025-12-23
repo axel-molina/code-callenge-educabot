@@ -1,18 +1,26 @@
-import { useState, useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { fetchEnrollments } from './api/enrollments'
-import { EnrollmentsTable } from './components/EnrollmentsTable'
 import { EnrollmentFilters } from './components/EnrollmentFilters'
 import { NewEnrollmentForm } from './components/NewEnrollmentForm'
 import { Layout } from './components/Layout'
 import {
-  Typography,
-  Stack,
-  CircularProgress,
   Alert,
+  Box,
+  Button,
   Card,
   CardContent,
+  Chip,
+  CircularProgress,
   Grid,
-  Box,
+  Paper,
+  Stack,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Typography,
 } from '@mui/material'
 
 function App() {
@@ -85,21 +93,81 @@ function App() {
                       onFilterChange={setStatusFilter}
                     />
                   </Box>
-                  <EnrollmentsTable
-                    enrollments={filteredEnrollments}
-                    onConfirm={confirmEnrollment}
-                  />
+                  {!filteredEnrollments || filteredEnrollments.length === 0 ? (
+                    <Typography>No enrollments found.</Typography>
+                  ) : (
+                    <TableContainer component={Paper}>
+                      <Table sx={{ minWidth: 650 }} aria-label="enrollments table">
+                        <TableHead>
+                          <TableRow>
+                            <TableCell>Name</TableCell>
+                            <TableCell>Email</TableCell>
+                            <TableCell>Workshop</TableCell>
+                            <TableCell>Status</TableCell>
+                            <TableCell>Date</TableCell>
+                            <TableCell>Actions</TableCell>
+                          </TableRow>
+                        </TableHead>
+                        <TableBody>
+                          {filteredEnrollments.map((enrollment: any) => (
+                            <TableRow
+                              key={enrollment.id}
+                              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                            >
+                              <TableCell component="th" scope="row">
+                                {enrollment.student_name}
+                              </TableCell>
+                              <TableCell>{enrollment.email}</TableCell>
+                              <TableCell>{enrollment.workshop}</TableCell>
+                              <TableCell>
+                                <Chip
+                                  label={enrollment.status}
+                                  color={getStatusColor(enrollment.status) as any}
+                                  size="small"
+                                />
+                              </TableCell>
+                              <TableCell>{enrollment.created_at.toLocaleDateString()}</TableCell>
+                              <TableCell>
+                                {enrollment.status === 'pending' && (
+                                  <Button
+                                    variant="contained"
+                                    size="small"
+                                    onClick={() => confirmEnrollment(enrollment.id)}
+                                  >
+                                    Confirm
+                                  </Button>
+                                )}
+                              </TableCell>
+                            </TableRow>
+                          ))}
+                        </TableBody>
+                      </Table>
+                    </TableContainer>
+                  )}
                 </Stack>
               </CardContent>
             </Card>
           </Grid>
           <Grid size={{ xs: 12, md: 4 }}>
-            <NewEnrollmentForm onCreate={addEnrollment} />
+            <NewEnrollmentForm onCreate={addEnrollment}/>
           </Grid>
         </Grid>
       </Stack>
     </Layout>
   )
+}
+
+const getStatusColor = (status: string) => {
+  switch (status) {
+    case 'confirmed':
+      return 'success'
+    case 'pending':
+      return 'warning'
+    case 'cancelled':
+      return 'error'
+    default:
+      return 'default'
+  }
 }
 
 export default App

@@ -1,10 +1,10 @@
-import React from "react";
-import { FormControl, InputLabel, Select, MenuItem, Box } from "@mui/material";
+import React from "react"
+import { FormControl, InputLabel, Select, MenuItem, Box } from "@mui/material"
 
 type Props = {
-    currentFilter: string;
-    onFilterChange: (filter: string) => void;
-};
+    currentFilter: string
+    onFilterChange: (filter: string) => void
+}
 
 export const EnrollmentFilters: React.FC<Props> = ({
     currentFilter,
@@ -28,5 +28,5 @@ export const EnrollmentFilters: React.FC<Props> = ({
                 </Select>
             </FormControl>
         </Box>
-    );
-};
+    )
+}

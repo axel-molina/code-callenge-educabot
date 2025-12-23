@@ -1,18 +1,18 @@
-import React, { useState } from "react";
-import { TextField, Button, Box, Typography, Paper } from "@mui/material";
+import React, { useState } from "react"
+import { TextField, Button, Box, Typography, Paper } from "@mui/material"
 
 type Props = {
-    onCreate: (enrollment: any) => void;
-};
+    onCreate: (enrollment: any) => void
+}
 
 export const NewEnrollmentForm: React.FC<Props> = ({ onCreate }) => {
-    const [name, setName] = useState("");
-    const [email, setEmail] = useState("");
-    const [workshop, setWorkshop] = useState("");
+    const [name, setName] = useState("")
+    const [email, setEmail] = useState("")
+    const [workshop, setWorkshop] = useState("")
 
     const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
-        if (!name || !email || !workshop) return;
+        e.preventDefault()
+        if (!name || !email || !workshop) return
 
         const newEnrollment = {
             id: crypto.randomUUID(),
@@ -21,13 +21,13 @@ export const NewEnrollmentForm: React.FC<Props> = ({ onCreate }) => {
             workshop,
             status: "pending",
             created_at: new Date().toISOString(),
-        };
+        }
 
-        onCreate(newEnrollment);
-        setName("");
-        setEmail("");
-        setWorkshop("");
-    };
+        onCreate(newEnrollment)
+        setName("")
+        setEmail("")
+        setWorkshop("")
+    }
 
     return (
         <Paper sx={{ p: 3 }}>
@@ -63,5 +63,5 @@ export const NewEnrollmentForm: React.FC<Props> = ({ onCreate }) => {
                 </Button>
             </Box>
         </Paper>
-    );
-};
+    )
+}
