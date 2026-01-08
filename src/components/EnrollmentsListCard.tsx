@@ -9,6 +9,8 @@ interface EnrollmentsListCardProps {
   confirmEnrollment: (id: string) => void;
   statusFilter: EnrollmentFilterStatus;
   setStatusFilter: (filter: EnrollmentFilterStatus) => void;
+  searchTerm: string;
+  setSearchTerm: (term: string) => void;
 }
 
 const EnrollmentsListCard: FC<EnrollmentsListCardProps> = ({
@@ -16,6 +18,8 @@ const EnrollmentsListCard: FC<EnrollmentsListCardProps> = ({
   confirmEnrollment,
   statusFilter,
   setStatusFilter,
+  searchTerm,
+  setSearchTerm,
 }) => {
   return (
     <Card>
@@ -26,12 +30,16 @@ const EnrollmentsListCard: FC<EnrollmentsListCardProps> = ({
               display: "flex",
               justifyContent: "space-between",
               alignItems: "center",
+              flexWrap: "wrap",
+              gap: 2,
             }}
           >
             <Typography variant="h6">Enrollments List</Typography>
             <EnrollmentFilters
               currentFilter={statusFilter}
               onFilterChange={setStatusFilter}
+              searchTerm={searchTerm}
+              onSearchChange={setSearchTerm}
             />
           </Box>
           <EnrollmentTable

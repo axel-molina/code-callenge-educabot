@@ -14,6 +14,8 @@ function App() {
     error,
     statusFilter,
     setStatusFilter,
+    searchTerm,
+    setSearchTerm,
     addEnrollment,
     confirmEnrollment,
   } = useEnrollments();
@@ -33,6 +35,8 @@ function App() {
               confirmEnrollment={confirmEnrollment}
               statusFilter={statusFilter}
               setStatusFilter={setStatusFilter}
+              searchTerm={searchTerm}
+              setSearchTerm={setSearchTerm}
             />
           </Grid>
           <Grid size={{ xs: 12, md: 3 }}>

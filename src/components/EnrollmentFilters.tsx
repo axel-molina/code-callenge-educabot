@@ -1,38 +1,72 @@
 import type { FC } from "react";
-import { FormControl, InputLabel, Select, MenuItem, Box } from "@mui/material";
+import {
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+  Box,
+  TextField,
+  InputAdornment,
+} from "@mui/material";
+import SearchIcon from "@mui/icons-material/Search";
 import type { SelectChangeEvent } from "@mui/material";
 import type { EnrollmentFilterStatus } from "../types/enrollment";
 
 interface EnrollmentFiltersProps {
   currentFilter: EnrollmentFilterStatus;
   onFilterChange: (filter: EnrollmentFilterStatus) => void;
+  searchTerm: string;
+  onSearchChange: (term: string) => void;
 }
 
 const EnrollmentFilters: FC<EnrollmentFiltersProps> = ({
   currentFilter,
   onFilterChange,
+  searchTerm,
+  onSearchChange,
 }) => {
-  const handleChange = (event: SelectChangeEvent<EnrollmentFilterStatus>) => {
+  const handleStatusChange = (
+    event: SelectChangeEvent<EnrollmentFilterStatus>
+  ) => {
     onFilterChange(event.target.value as EnrollmentFilterStatus);
   };
 
   return (
-    <Box sx={{ minWidth: 120 }}>
-      <FormControl fullWidth>
-        <InputLabel id="status-filter-label">Filter by Status</InputLabel>
-        <Select
-          labelId="status-filter-label"
-          id="status-filter"
-          value={currentFilter}
-          label="Filter by Status"
-          onChange={handleChange}
-        >
-          <MenuItem value="all">All</MenuItem>
-          <MenuItem value="pending">Pending</MenuItem>
-          <MenuItem value="confirmed">Confirmed</MenuItem>
-          <MenuItem value="cancelled">Cancelled</MenuItem>
-        </Select>
-      </FormControl>
+    <Box
+      sx={{ display: "flex", gap: 2, alignItems: "center", flexWrap: "wrap" }}
+    >
+      <TextField
+        placeholder="Search name or email..."
+        variant="outlined"
+        size="small"
+        value={searchTerm}
+        onChange={(e) => onSearchChange(e.target.value)}
+        sx={{ minWidth: 250 }}
+        InputProps={{
+          startAdornment: (
+            <InputAdornment position="start">
+              <SearchIcon />
+            </InputAdornment>
+          ),
+        }}
+      />
+      <Box sx={{ minWidth: 150 }}>
+        <FormControl fullWidth size="small">
+          <InputLabel id="status-filter-label">Status</InputLabel>
+          <Select
+            labelId="status-filter-label"
+            id="status-filter"
+            value={currentFilter}
+            label="Status"
+            onChange={handleStatusChange}
+          >
+            <MenuItem value="all">All</MenuItem>
+            <MenuItem value="pending">Pending</MenuItem>
+            <MenuItem value="confirmed">Confirmed</MenuItem>
+            <MenuItem value="cancelled">Cancelled</MenuItem>
+          </Select>
+        </FormControl>
+      </Box>
     </Box>
   );
 };

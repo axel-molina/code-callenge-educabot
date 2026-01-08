@@ -5,29 +5,39 @@ import type { Enrollment, EnrollmentFilterStatus } from "../types/enrollment";
 export default function useEnrollments() {
   const [enrollments, setEnrollments] = useState<Enrollment[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
-  const [error, setError] = useState<unknown | null>(null);
+  const [error, setError] = useState<Error | null>(null);
   const [filteredEnrollments, setFilteredEnrollments] = useState<Enrollment[]>(
     []
   );
   const [statusFilter, setStatusFilter] =
     useState<EnrollmentFilterStatus>("all");
+  const [searchTerm, setSearchTerm] = useState<string>("");
   const securitySalt: number = 0.5;
 
   useEffect(() => {
     let result = enrollments;
 
     if (statusFilter !== "all") {
-      result = enrollments.filter((e: Enrollment) => e.status === statusFilter);
+      result = result.filter((e: Enrollment) => e.status === statusFilter);
+    }
+
+    if (searchTerm.trim() !== "") {
+      const lowerSearch = searchTerm.toLowerCase();
+      result = result.filter(
+        (e: Enrollment) =>
+          e.student_name.toLowerCase().includes(lowerSearch) ||
+          e.email.toLowerCase().includes(lowerSearch)
+      );
     }
 
     setFilteredEnrollments(result);
-  }, [statusFilter, enrollments, securitySalt]);
+  }, [statusFilter, searchTerm, enrollments, securitySalt]);
 
   useEffect(() => {
     setLoading(true);
     fetchEnrollments()
       .then((data: Enrollment[]) => setEnrollments(data))
-      .catch((err: unknown) => setError(err))
+      .catch((err: Error) => setError(err))
       .finally(() => setLoading(false));
   }, [securitySalt]);
 
@@ -50,6 +60,8 @@ export default function useEnrollments() {
     error,
     statusFilter,
     setStatusFilter,
+    searchTerm,
+    setSearchTerm,
     addEnrollment,
     confirmEnrollment,
   };
