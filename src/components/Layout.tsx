@@ -1,4 +1,5 @@
-import React from "react";
+import { useState } from "react";
+import type { FC, ReactNode } from "react";
 import {
   AppBar,
   Box,
@@ -23,8 +24,12 @@ import {
 
 const drawerWidth = 240;
 
-export const Layout: any = ({ children }: any) => {
-  const [mobileOpen, setMobileOpen] = React.useState<any>(false);
+interface LayoutProps {
+  children: ReactNode;
+}
+
+const Layout: FC<LayoutProps> = ({ children }) => {
+  const [mobileOpen, setMobileOpen] = useState<boolean>(false);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -134,3 +139,5 @@ export const Layout: any = ({ children }: any) => {
     </Box>
   );
 };
+
+export default Layout;

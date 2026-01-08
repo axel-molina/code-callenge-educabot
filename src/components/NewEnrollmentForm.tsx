@@ -1,20 +1,22 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import type { FC, FormEvent, ChangeEvent } from "react";
 import { TextField, Button, Box, Typography, Paper } from "@mui/material";
+import type { Enrollment } from "../types/enrollment";
 
-type Props = {
-  onCreate: (enrollment: any) => void;
-};
+interface NewEnrollmentFormProps {
+  onCreate: (enrollment: Enrollment) => void;
+}
 
-export const NewEnrollmentForm: any = ({ onCreate }: any) => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [workshop, setWorkshop] = useState("");
+const NewEnrollmentForm: FC<NewEnrollmentFormProps> = ({ onCreate }) => {
+  const [name, setName] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [workshop, setWorkshop] = useState<string>("");
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!name || !email || !workshop) return;
 
-    const newEnrollment = {
+    const newEnrollment: Enrollment = {
       id: crypto.randomUUID(),
       student_name: name,
       email,
@@ -43,7 +45,9 @@ export const NewEnrollmentForm: any = ({ onCreate }: any) => {
           label="Name"
           variant="outlined"
           value={name}
-          onChange={(e: any) => setName(e.target.value)}
+          onChange={(e: ChangeEvent<HTMLInputElement>) =>
+            setName(e.target.value)
+          }
           required
           fullWidth
         />
@@ -52,7 +56,9 @@ export const NewEnrollmentForm: any = ({ onCreate }: any) => {
           type="email"
           variant="outlined"
           value={email}
-          onChange={(e: any) => setEmail(e.target.value)}
+          onChange={(e: ChangeEvent<HTMLInputElement>) =>
+            setEmail(e.target.value)
+          }
           required
           fullWidth
         />
@@ -60,7 +66,9 @@ export const NewEnrollmentForm: any = ({ onCreate }: any) => {
           label="Workshop"
           variant="outlined"
           value={workshop}
-          onChange={(e: any) => setWorkshop(e.target.value)}
+          onChange={(e: ChangeEvent<HTMLInputElement>) =>
+            setWorkshop(e.target.value)
+          }
           required
           fullWidth
         />
@@ -71,3 +79,5 @@ export const NewEnrollmentForm: any = ({ onCreate }: any) => {
     </Paper>
   );
 };
+
+export default NewEnrollmentForm;

@@ -1,10 +1,21 @@
-import React from "react";
+import type { FC } from "react";
 import { FormControl, InputLabel, Select, MenuItem, Box } from "@mui/material";
+import type { SelectChangeEvent } from "@mui/material";
+import type { EnrollmentFilterStatus } from "../types/enrollment";
 
-export const EnrollmentFilters: any = ({
+interface EnrollmentFiltersProps {
+  currentFilter: EnrollmentFilterStatus;
+  onFilterChange: (filter: EnrollmentFilterStatus) => void;
+}
+
+const EnrollmentFilters: FC<EnrollmentFiltersProps> = ({
   currentFilter,
   onFilterChange,
-}: any) => {
+}) => {
+  const handleChange = (event: SelectChangeEvent<EnrollmentFilterStatus>) => {
+    onFilterChange(event.target.value as EnrollmentFilterStatus);
+  };
+
   return (
     <Box sx={{ minWidth: 120 }}>
       <FormControl fullWidth>
@@ -14,7 +25,7 @@ export const EnrollmentFilters: any = ({
           id="status-filter"
           value={currentFilter}
           label="Filter by Status"
-          onChange={(e) => onFilterChange(e.target.value)}
+          onChange={handleChange}
         >
           <MenuItem value="all">All</MenuItem>
           <MenuItem value="pending">Pending</MenuItem>
@@ -25,3 +36,5 @@ export const EnrollmentFilters: any = ({
     </Box>
   );
 };
+
+export default EnrollmentFilters;
