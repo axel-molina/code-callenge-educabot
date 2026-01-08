@@ -7,8 +7,11 @@ import {
   Box,
   TextField,
   InputAdornment,
+  IconButton,
+  Tooltip,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
+import RefreshIcon from "@mui/icons-material/Refresh";
 import type { SelectChangeEvent } from "@mui/material";
 import type { EnrollmentFilterStatus } from "../types/enrollment";
 
@@ -29,6 +32,11 @@ const EnrollmentFilters: FC<EnrollmentFiltersProps> = ({
     event: SelectChangeEvent<EnrollmentFilterStatus>
   ) => {
     onFilterChange(event.target.value as EnrollmentFilterStatus);
+  };
+
+  const handleRefresh = () => {
+    onFilterChange("all");
+    onSearchChange("");
   };
 
   return (
@@ -67,6 +75,11 @@ const EnrollmentFilters: FC<EnrollmentFiltersProps> = ({
           </Select>
         </FormControl>
       </Box>
+      <Tooltip title="Reset filters">
+        <IconButton onClick={handleRefresh} color="primary" size="small">
+          <RefreshIcon />
+        </IconButton>
+      </Tooltip>
     </Box>
   );
 };
